@@ -1,2 +1,15 @@
+import {connect} from 'react-redux';
 import IncomeEntries from './IncomeEntries';
-export default IncomeEntries;
+
+//This function takes the store and returns an object
+//that's passed to the props of the component.
+function mapStoreToProps (store){
+  return {
+    description: store.income.description,
+    amount: store.income.amount,
+    lineItems: store.income.lineItems
+  };
+}
+
+//Connect returns a function that is then called with the component itself.
+export default connect (mapStoreToProps)(IncomeEntries);
