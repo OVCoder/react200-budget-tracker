@@ -1,27 +1,30 @@
 import React from 'react';
 
-function calculateSum(lineItems){
+function calculateSum(lineItems) {
   return lineItems.reduce((acc, lineItem) => acc + lineItem.amount, 0);
 }
 
-function formatCurrency(amount){
-  if (amount >=0){
-    const dollars = Math.floor(amount);
-    const cents = Math.floor((amount-dollars) * 100).toString().padEnd(2, '0');
+function formatCurrency(amount) {
+  if (amount >= 0) {
+    const dollars = Math.floor(amount);  
+    const cents = Math.round((amount - dollars) * 100).toString().padEnd(2, '0');                          
     return `$${dollars.toLocaleString()}.${cents}`;
   }
+
   const dollars = Math.ceil(amount);
   const cents = Math.floor((amount - dollars) * 100 * -1).toString().padEnd(2, '0');
   return `-$${(dollars * -1).toLocaleString()}.${cents}`;
 }
 
+
 class Summary extends React.Component{
   render(){
     const {incomeItems, expenseItems} = this.props;
-    const incomeTotal = calculateSum(incomeItems) / 100;
-    const expenseTotal = calculateSum(expenseItems) / 100;
-    const difference = Math.round(incomeTotal - expenseTotal) / 100;
-
+    const incomeTotal = calculateSum(incomeItems);
+    const expenseTotal = calculateSum(expenseItems);
+    const difference = Math.round((incomeTotal - expenseTotal)*100)/100;
+    console.log(incomeTotal);
+    console.log(expenseTotal);
     return(
       <div className='card border-info mb-3'>
         <div className='card-header text-white bg-info'>Summary</div>

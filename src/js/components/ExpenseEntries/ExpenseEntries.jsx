@@ -21,7 +21,8 @@ export default class ExpenseEntries extends React.Component {
   }
   
   handleDescriptionInput(event) {
-    //dispatch was provided by connect()
+    /*dispatch was provided by connect(). Dispatch is the function that we
+      pass actions to, in order to change the store.*/
     const {dispatch} = this.props;
     const {value} = event.target;
     dispatch(updateExpenseDescription(value));
@@ -84,8 +85,8 @@ export default class ExpenseEntries extends React.Component {
               </thead>
               <tbody>
                 {
-                  lineItems.map(lineItem => (
-                    <tr>
+                  lineItems.map((lineItem, index) => (
+                    <tr key={index}>
                       <td> {lineItem.description}</td>
                       <td>${lineItem.amount.toFixed(2)}</td>
                     </tr>
